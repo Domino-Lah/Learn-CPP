@@ -26,6 +26,6 @@ cin.get(ch);    //等价于ch=cin.get()，cin.get()函数会读取所有的输�
 7. 如果已知变量为正整数，就可以声明为unsigned
 8. 简洁写法：
 ```cpp
-while(cin>>number>>picks)
+while(cin>>number>>picks)	//enter q to quit
 {...}
 ```
