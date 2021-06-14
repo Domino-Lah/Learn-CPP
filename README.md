@@ -34,4 +34,12 @@ while(cin>>number>>picks)
 ```cpp
 int sum_arr(int arr[], int n);	//arr is array name, n is size
 ```
-
+10. 将数组类型和元素数量告诉数组处理函数，要通过两个参数传递而不要用方括号表示法来传递数组长度：
+```cpp
+void fillArray(int arr[], int size);	//prototype
+void fillArray(int arr[size]);		//bad prototype
+```
+11. 以下函数原型并不意味着传入函数的原始数组必须是常量，只是意味着不能在show_array()函数中使用ar来修改这些数据。因此show_array()将数组视为只读数据
+```cpp
+void show_array(const double ar[], int n);
+```
