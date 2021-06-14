@@ -43,3 +43,15 @@ void fillArray(int arr[size]);		//bad prototype
 ```cpp
 void show_array(const double ar[], int n);
 ```
+12. 处理非法输入的简便方法：
+```cpp
+cout << "Enter revalue factor: ";
+double factor;
+while (!(cin >> factor))
+{
+cin.clear();				//clear()可以清除buffer中的数据
+while (cin.get() != '\n') continue;	//get()读取单个字符
+cout << "Bad input, please reinput: ";
+}
+cout << factor << endl;
+```
