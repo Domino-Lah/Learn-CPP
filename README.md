@@ -55,3 +55,24 @@ cout << "Bad input, please reinput: ";
 }
 cout << factor << endl;
 ```
+13. 两种方式将const用于指针：<br>
+一是让指针指向一个常量对象，可以保证指针指向的值不会被修改；二是将指针本身声明为常量，可以防止改变指针指向的位置。
+```cpp
+//第一种，声明一个指向常量的指针pt
+int age=30;
+const int *pt=&age;
+//这里pt指向一个const int(此处为30)，因此不能用pt来修改这个值，即*pt的值为const，不能被修改
+//这种方式的pt声明并不意味着它指向的值实际上就是一个常量，只是意味着对pt而言这个值是常量。例如pt指向age而age不是const
+//可以直接通过age变量来修改age的值但不能使用pt指针来修改它：
+*pt=20;	//INVALID because pt points to a const int
+age=20;	//VALID because age is not declared to be const
+```
+还有另外两种赋值可能：将const变量的地址赋值给const的指针、将const的地址赋给常规指针。但第一种可行第二种不可行：
+```cpp
+const float g_earch=9.8;
+const float *pe=&g_earch;	//VALID
+
+const float g_moon=1.63;
+float *pm=&g_moon;		//INVALID
+```
+第二种情况非法的原因是：如果将g_moon的地址赋值给pm，则可以使用pm来修改g_moon的值，就使得g_moon的const状态会发生冲突，因此C++禁止将const变量赋值给非const指针。如果非要这样做，可以用强制类型装换来const_cast来突破限制
