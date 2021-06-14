@@ -76,3 +76,37 @@ const float g_moon=1.63;
 float *pm=&g_moon;		//INVALID
 ```
 第二种情况非法的原因是：如果将g_moon的地址赋值给pm，则可以使用pm来修改g_moon的值，就使得g_moon的const状态会发生冲突，因此C++禁止将const变量赋值给非const指针。如果非要这样做，可以用强制类型装换来const_cast来突破限制
+14. 仅当只有一层间接关系(如指针指向基本数据类型)时，才可以将非const地址或指针赋值给const指针，两层间接关系时就不安全了。即如果数据本身不是指针，则可以将const数据或非const数据的地址赋值给指向const的指针，但只能将非const数据的地址赋值给非const指针。以下例子可以证明不安全性：
+```cpp
+const int **p2;
+int *p1;
+const int n=13;
+p2=&p1;
+*p2=&n;
+p1=30;
+//p2是指向指针的指针，它是const，指向了非const的指p1
+//p1再指向了const的数据n，看起来两层都合理：“const指针指向非const地址，非const指针指向const地址”
+//但组合在一起就不合理了，因为修改p1的地址的值就改动到了n值
+```
+因此不能将常量数组名作为参数传给使用非常量形参的函数
+15. 尽量将指针参数声明为指向常量的指针。两个原因如下：<br>
+可以避免无意间修改数据带来的错误；<br>
+使用const使函数能够处理const和非const实参，否则只能接受非const数据
+16. 注意区分const的位置：
+```cpp
+//1
+int age=39;
+const int *pt=&age;	//这里的const用于防止修改pt指向的值，而不能防止修改pt的值
+pt=40;			//也就是说我们不可以这样修改pt指向的39
+int sage=80;
+pt=&sage		//但可以把一个新的地址赋值给pt
+//2
+int sloth=3;
+const int *ps=&sloth;		//a pointer point to const int, ps不能用来修改sloth的值但可以将ps指向另一个位置
+int * const finger=&sloth;	//a const pointer point to int, finger只能指向sloth但finger可以用来修改sloth的值
+//也就是说：finger和*ps都是const但*finger和ps都不是
+//3
+double trouble=2.0;
+const double * const stick=&trouble;	//这是指向const对象的const指针，stick只能指向trouble且不能用来修改trouble的值
+//stick和*stick都是const
+```
