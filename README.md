@@ -1,5 +1,7 @@
 # Learn-CPP
 ## 第七章
+### Part 1
+---
 1. C++的函数返回值类型不能是数组，但可以是其他任何类型：整数、浮点数、指针、结构、对象等。<br>
 	`C++不能返回数组但是可以将数组作为结构或对象的组成部分来返回`
 2. C++函数三要素：函数定义、函数原型、函数调用。规范的写法应该是prototype写在前面然后main函数最后才定义函数内容。C++的风格是将main函数放在最前面，因为它定义了程序的整体结构
@@ -110,3 +112,9 @@ double trouble=2.0;
 const double * const stick=&trouble;	//这是指向const对象的const指针，stick只能指向trouble且不能用来修改trouble的值
 //stick和*stick都是const
 ```
+17. 二维数组索引也可以用两次\*\*来解除引用：
+```cpp
+arr[r][c]==*(*(arr+r)+c);	//same
+```
+### Part 2
+---
